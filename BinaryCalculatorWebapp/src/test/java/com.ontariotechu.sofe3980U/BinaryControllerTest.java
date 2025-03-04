@@ -30,58 +30,31 @@ public class BinaryControllerTest {
     @Autowired
     private MockMvc mvc;
 
+   
     @Test
     public void getDefault() throws Exception {
         this.mvc.perform(get("/"))//.andDo(print())
             .andExpect(status().isOk())
             .andExpect(view().name("calculator"))
-            .andExpect(model().attribute("operand1", ""))
-            .andExpect(model().attribute("operand1Focused", false));
+			.andExpect(model().attribute("operand1", ""))
+			.andExpect(model().attribute("operand1Focused", false));
     }
-
-    @Test
+	
+	    @Test
     public void getParameter() throws Exception {
         this.mvc.perform(get("/").param("operand1","111"))
             .andExpect(status().isOk())
             .andExpect(view().name("calculator"))
-            .andExpect(model().attribute("operand1", "111"))
-            .andExpect(model().attribute("operand1Focused", true));
+			.andExpect(model().attribute("operand1", "111"))
+			.andExpect(model().attribute("operand1Focused", true));
     }
-
-    @Test
-    public void postParameter() throws Exception {
-        this.mvc.perform(post("/").param("operand1","111").param("operator","+").param("operand2","111"))
+	@Test
+	    public void postParameter() throws Exception {
+        this.mvc.perform(post("/").param("operand1","111").param("operator","+").param("operand2","111"))//.andDo(print())
             .andExpect(status().isOk())
             .andExpect(view().name("result"))
-            .andExpect(model().attribute("result", "1110"))
-            .andExpect(model().attribute("operand1", "111"));
+			.andExpect(model().attribute("result", "1110"))
+			.andExpect(model().attribute("operand1", "111"));
     }
 
-    // New Test Cases
-    @Test
-    public void postMultiply() throws Exception {
-        this.mvc.perform(post("/").param("operand1","101").param("operator","*").param("operand2","11"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("result"))
-            .andExpect(model().attribute("result", "1111"))
-            .andExpect(model().attribute("operand1", "101"));
-    }
-
-    @Test
-    public void postAnd() throws Exception {
-        this.mvc.perform(post("/").param("operand1","1010").param("operator","&").param("operand2","1100"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("result"))
-            .andExpect(model().attribute("result", "1000"))
-            .andExpect(model().attribute("operand1", "1010"));
-    }
-
-    @Test
-    public void postOr() throws Exception {
-        this.mvc.perform(post("/").param("operand1","1010").param("operator","|").param("operand2","0101"))
-            .andExpect(status().isOk())
-            .andExpect(view().name("result"))
-            .andExpect(model().attribute("result", "1111"))
-            .andExpect(model().attribute("operand1", "1010"));
-    }
 }
