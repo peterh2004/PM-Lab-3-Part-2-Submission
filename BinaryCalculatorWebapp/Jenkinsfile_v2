@@ -95,7 +95,7 @@ pipeline {
                                 
                             }
                         }
-                        // display the service IP
+                        // display the service IP pls
                         sh "kubectl get service/binarycalculator-service -o jsonpath='{.status.loadBalancer.ingress[0].ip}'"
                     }
                 }
